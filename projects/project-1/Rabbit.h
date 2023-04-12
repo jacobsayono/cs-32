@@ -1,7 +1,10 @@
 #ifndef RABBIT_H
 #define RABBIT_H
 
+#include "globals.h"
 #include "Arena.h"
+
+class Arena;
 
 class Rabbit
 {

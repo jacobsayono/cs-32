@@ -3,6 +3,17 @@
 
 #include "Player.h"
 #include "Rabbit.h"
+#include "globals.h"
+#include "History.h"
+
+#include <string>
+using namespace std;
+
+class Player;
+
+class Rabbit;
+
+class History;
 
 class Arena
 {
@@ -12,6 +23,7 @@ class Arena
     ~Arena();
 
       // Accessors
+    History& history();
     int     rows() const;
     int     cols() const;
     Player* player() const;
@@ -27,6 +39,7 @@ class Arena
     void moveRabbits();
 
   private:
+    History m_history;
     int     m_grid[MAXROWS][MAXCOLS];
     int     m_rows;
     int     m_cols;

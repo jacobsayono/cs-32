@@ -2,9 +2,12 @@
 #define GAME_H
 
 #include "Arena.h"
+#include "Player.h"
 
 #include <string>
 using namespace std;
+
+class Arena;
 
 class Game
 {

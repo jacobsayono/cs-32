@@ -1,8 +1,7 @@
 #include "Player.h"
-#include "Arena.h"
-#include "globals.h"
 
 #include <iostream>
+#include <string>
 using namespace std;
 
 Player::Player(Arena* ap, int r, int c)
@@ -39,6 +38,7 @@ string Player::dropPoisonedCarrot()
     if (m_arena->getCellStatus(m_row, m_col) == HAS_POISON)
         return "There's already a poisoned carrot at this spot.";
     m_arena->setCellStatus(m_row, m_col, HAS_POISON);
+    m_arena->history().record(m_row, m_col);  // call history object
     return "A poisoned carrot has been dropped.";
 }
 

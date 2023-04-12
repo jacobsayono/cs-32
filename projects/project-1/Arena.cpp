@@ -1,12 +1,10 @@
 #include "Arena.h"
-#include "Player.h"
-#include "Rabbit.h"
-#include "globals.h"
 
 #include <iostream>
+#include <string>
 using namespace std;
 
-Arena::Arena(int nRows, int nCols)
+Arena::Arena(int nRows, int nCols) : m_history(nRows, nCols)
 {
     if (nRows <= 0  ||  nCols <= 0  ||  nRows > MAXROWS  ||  nCols > MAXCOLS)
     {
@@ -29,6 +27,10 @@ Arena::~Arena()
     for (int k = 0; k < m_nRabbits; k++)
         delete m_rabbits[k];
     delete m_player;
+}
+
+History& Arena::history() {
+	return m_history;
 }
 
 int Arena::rows() const

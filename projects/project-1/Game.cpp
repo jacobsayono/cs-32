@@ -1,9 +1,66 @@
 #include "Game.h"
-#include "Player.h"
-#include "globals.h"
 
 #include <iostream>
+#include <string>
 using namespace std;
+
+bool decodeDirection(char ch, int& dir);
+bool recommendMove(const Arena& a, int r, int c, int& bestDir);
+
+bool decodeDirection(char ch, int& dir)
+{
+    switch (tolower(ch))
+    {
+      default:  return false;
+      case 'n': dir = NORTH; break;
+      case 'e': dir = EAST;  break;
+      case 's': dir = SOUTH; break;
+      case 'w': dir = WEST;  break;
+    }
+    return true;
+}
+
+  // Recommend a move for a player at (r,c):  A false return means the
+  // recommendation is that the player should drop a poisoned carrot and
+  // not move; otherwise, this function sets bestDir to the recommended
+  // direction to move and returns true.
+bool recommendMove(const Arena& a, int r, int c, int& bestDir)
+{
+      // How dangerous is it to stand?
+    int standDanger = computeDanger(a, r, c);
+
+      // if it's not safe, see if moving is safer
+    if (standDanger > 0)
+    {
+        int bestMoveDanger = standDanger;
+        int bestMoveDir = NORTH;  // arbitrary initialization
+
+          // check the four directions to see if any move is
+          // better than standing, and if so, record the best
+        for (int dir = 0; dir < NUMDIRS; dir++)
+        {
+            int rnew = r;
+            int cnew = c;
+            if (attemptMove(a, dir, rnew, cnew))
+            {
+                int danger = computeDanger(a, rnew, cnew);
+                if (danger < bestMoveDanger)
+                {
+                    bestMoveDanger = danger;
+                    bestMoveDir = dir;
+                }
+            }
+        }
+
+          // if moving is better than standing, recommend move
+        if (bestMoveDanger < standDanger)
+        {
+            bestDir = bestMoveDir;
+            return true;
+        }
+    }
+    return false;  // recommend standing
+}
 
 Game::Game(int rows, int cols, int nRabbits)
 {
@@ -61,12 +118,16 @@ string Game::takePlayerTurn()
 {
     for (;;)
     {
-        cout << "Your move (n/e/s/w/c or nothing): ";
+        cout << "Your move (n/e/s/w/c or nothing, h to see history): ";
         string playerMove;
         getline(cin, playerMove);
 
         Player* player = m_arena->player();
         int dir;
+
+        if (tolower(playerMove[0] == 'h')) {
+            return "Called history object.";
+        }
 
         if (playerMove.size() == 0)
         {
@@ -95,6 +156,12 @@ void Game::play()
     while ( ! player->isDead()  &&  m_arena->rabbitCount() > 0)
     {
         string msg = takePlayerTurn();
+        if (msg == "Called history object.") {
+            m_arena->history().display();
+            cout << "Press enter to continue.";
+            cin.ignore(10000, '\n');
+            continue;
+        }
         m_arena->display(msg);
         if (player->isDead())
             break;
