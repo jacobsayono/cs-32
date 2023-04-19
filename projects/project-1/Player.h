@@ -1,9 +1,6 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "Arena.h"
-#include "globals.h"
-
 #include <string>
 using namespace std;
 

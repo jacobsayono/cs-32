@@ -1,0 +1,107 @@
+if the file foo.h defines the class Foo, when does another file require you to say
+#include "foo.h"
+and when can you instead simply provide the incomplete type declaration
+class Foo;
+
+you have to #include the header file defining a class when
+    you declare a data member of that class type
+    you declare a container (e.g. an array or a vector) of objects of that class type
+    you create an object of that class type
+    you use a member of that class type
+
+you don't have to and can just use class Foo;
+    if using POINTER to that class
+    if using container of a pointer to that class
+    if using class object as parameters for a function.
+
+example:
+
+blah.h
+======
+
+class Blah
+{
+    ...
+    void g(Foo f, Foo& fr, Foo* fp);    // just need to say class Foo;  (parameters are ok)
+    ...
+    Foo* fp_;                           // just need to say class Foo;
+    Foo* fpa_[10];                      // just need to say class Foo;
+    vector<Foo*> fpv_                   // just need to say class Foo;
+
+    Foo f_;                             // must #include "foo.h"  (declaring object of class type)
+    Foo fa_[10];                        // must #include "foo.h"  (declaring container of object of class type)
+    vector<Foo> fv_                     // must #include "foo.h"  (declaring container of object of class type)
+}
+
+blah.cpp
+========
+
+void Blah::g(Foo f, Foo& fr, Foo* fp) {
+    Foo f2(10, 20);                     // must #include "foo.h"  (creating object of class Foo)
+    f.gleep();                          // must #include "foo.h"  (using member of class Foo)
+    fr.gleep();                         // must #include "foo.h"
+    fp->gleep();                        // must #include "foo.h"
+}
+
+
+
+class A;  // incomplete type declaration
+
+class B;
+
+class A {  // no full-blown implementation
+    ...
+}
+
+
+
+student.h
+=========
+
+#ifndef STUDENT_H
+#define STUDENT_H
+
+class Course;
+
+class Student {
+    ...
+    void enroll(Course* cp);
+    ...
+    Course* study_list_[10];
+};
+
+#endif /* STUDENT_H */
+
+
+
+course.h
+========
+
+class Student;
+
+#ifndef COURSE_H
+#define COURSE_H
+
+class Course {
+    ...
+    int units() const;
+    ...
+    Student* roster_[1000];
+};
+
+#endif /* COURSE_H */
+
+
+
+myapp.cpp
+========
+
+#include "student.h"
+#include "course.h"
+
+// can do:
+// class Course;
+
+void f(Student* s, Course* cp) {
+    s->enroll(cp);
+}

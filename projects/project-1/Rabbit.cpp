@@ -1,4 +1,6 @@
 #include "Rabbit.h"
+#include "globals.h"
+#include "Arena.h"
 
 #include <iostream>
 using namespace std;
@@ -58,4 +60,8 @@ void Rabbit::move()
 
     if (m_health < INITIAL_RABBIT_HEALTH)
         m_idleTurnsRemaining = POISONED_IDLE_TIME;
+
+    if (m_health == 1) {
+        m_arena->history().record(m_row, m_col);  // call history object
+    }
 }

@@ -1,4 +1,6 @@
 #include "Arena.h"
+#include "Player.h"
+#include "Rabbit.h"
 
 #include <iostream>
 #include <string>

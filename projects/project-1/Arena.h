@@ -1,8 +1,6 @@
 #ifndef ARENA_H
 #define ARENA_H
 
-#include "Player.h"
-#include "Rabbit.h"
 #include "globals.h"
 #include "History.h"
 

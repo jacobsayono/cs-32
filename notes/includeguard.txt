@@ -1,0 +1,57 @@
+for each source file (.cpp) in a project, the compiler produces an object file (.o or .obj) containing:
+    the machine language translation of the code for each function
+    storage for global objects (e.g., std::cout)
+    a list of global names defined (i.e., implemented) by this object file
+    a list of global names used in this file that need a definition somewhere
+
+the linker brings all these object files together, along with needed objectfiles that are part of the library
+to produce an executable file. rules:
+    nothing can be defined more than once
+    every need must be satisfied by some definition
+    there must be (exactly) one main routine
+
+
+point.h
+=======
+
+#ifndef POINT_H
+#define POINT_H
+
+class Point {
+    ...
+}
+
+#endif /* POINT_H */
+
+
+
+circle.h
+========
+
+#ifndef CIRCLE_H
+#define CIRCLE_H
+
+#include "point.h"
+
+class Circle {
+    ...
+    private:
+        Point center_;
+        double radius_;
+}
+
+#endif /* CIRCLE_H */
+
+
+
+main.cpp
+========
+
+#include "circle.h"
+#include "point.h"
+
+int main() {
+    Circle c(-2, 5, 10);
+    Point p(2, 4);
+    ...
+}

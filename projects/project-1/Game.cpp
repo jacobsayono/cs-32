@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "Arena.h"
+#include "Player.h"
 
 #include <iostream>
 #include <string>
@@ -118,7 +120,7 @@ string Game::takePlayerTurn()
 {
     for (;;)
     {
-        cout << "Your move (n/e/s/w/c or nothing, h to see history): ";
+        cout << "Your move (n/e/s/w/c, or nothing, or h to see history): ";
         string playerMove;
         getline(cin, playerMove);
 
@@ -143,7 +145,7 @@ string Game::takePlayerTurn()
             else if (decodeDirection(playerMove[0], dir))
                 return player->move(dir);
         }
-        cout << "Player move must be nothing, or 1 character n/e/s/w/c." << endl;
+        cout << "Player move must be nothing, or 1 character n/e/s/w/c, or h to see history." << endl;
     }
 }
 
