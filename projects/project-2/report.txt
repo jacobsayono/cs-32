@@ -1,0 +1,556 @@
+Jacob Sayono
+505368811
+Project 2
+
+The Sequence data structure I'm implementing is a doubly linked list,
+consisting of nodes that have two pointers each: next and prev.
+The list has a head pointer pointing to the first node and a tail pointer pointing to the last node.
+When the first or last node is reached, prev or next is set to nullptr, respectively.
+This design is based on the standard doubly linked list system.
+
+Psuedocode:
+
+Sequence::Sequence()
+    create an empty linked list
+    set head and tail to nullptr
+    set size to 0
+
+Sequence::~Sequence()
+    create a pointer to Node p
+    increment thru the pointer list until the end is reached
+    delete each node 1 by 1
+
+Sequence::Sequence(const Sequence& other)
+    if other is empty
+        make sequence empty
+    else
+        make a new itemtype p
+        repeatedly
+            put other data into p
+            add p to rear of sequence with rear function
+        make sequence size = other size
+
+Sequence& Sequence::operator=(const Sequence& rhs)
+    check that rhs is not an alias for sequence
+    all the copy constructor to copy rhs into temp sequence
+    swap temp sequence with sequence
+    return pointer to sequence
+
+int Sequence::size()
+    return the size
+
+bool Sequence::empty()
+    return whether the size is 0 or not
+
+int Sequence::insert(int pos, const ItemType& value)
+    if pos out of bounds, return    
+    if pos is 0, add value to front function
+    if pos is = size, add value to back
+    otherwise
+        add item at given position
+    return position
+
+int Sequence::insert(const ItemType& value)
+    if empty list, add to front
+    if value is less than first item
+        add to front function
+        return position 0
+    otherwise
+        make a pointer to a node p
+        repeatedly
+            increment counter until find position one above desired position where value <= item at next position
+        if we find desired position
+            add item & return position
+        otherwise return    
+
+bool Sequence::erase(int pos)
+    if pos out of bounds, return false
+    if empty list, return false
+    return bool helper function deleteItem if deleteItem deletes
+
+int Sequence::remove(const ItemType& value)
+    if empty list return 0
+    make a pointer to a node p
+    repeatedly
+        increment pointer through list until find desired position item in sequence == value
+            call erase function on item at that position
+            move position down one since we delete
+        increment p increment pos
+    return number of items removed
+
+bool Sequence::get(int pos, ItemType&value)
+    if position out of bounds return false
+    if empty list return false
+    create a pointer to a node p
+    repeatedly
+        increment through list by pointer until locating position
+            set value to data at position
+            return true
+    return false otherwise
+
+bool Sequence::set(int pos, const ItemType& value)
+    if position is out of bounds return false
+    if list is empty return false
+    create a pointer to a node p
+    repeatedly
+        increment through list by pointer until locating position
+            if found, break 
+        set data at position to value
+        return true
+
+int Sequence::find(const ItemType& value) const
+    create a pointer to a node p
+    repeatedly
+        increment through list by pointer until locating position where its data == value
+    return that position
+    return  
+
+void Sequence::swap(Sequence& other)
+    make a temporary pointer to the sequence head and tail
+    swap the head with other head
+    swap the tail with other tail
+    make temporary size
+    swap the sizes 
+
+void Sequence::addItem(int pos, const ItemType& value)
+	if empty sequence
+		add to front function
+	if position is 0
+		add to front function
+	if position is last
+		add to rear function
+	otherwise
+		make a pointer p to first node
+			loop through p
+				find node above desired position
+		if it is the last element in the list
+			add to rear function
+		otherwise
+			make a new node
+			put value in node
+			new node gets the node before it’s next
+			new node gets the node after it’s prev
+update next pointer from node before
+			update prev pointer from node after
+			increment the size
+
+void Sequence::addToFront(const ItemType& value)
+	make a pointer to a new node p
+	put value in p
+	
+	if empty list
+		set next to what head points (will be nullptr)
+		set previous to null pointer
+		head points to this node
+		tail points to this node
+
+	otherwise
+		set next to what head points to
+		set previous to null pointer
+		next item’s previous becomes this node
+		head points to this node
+	increment the size
+
+void Sequence::addToRear(const ItemType& value)
+	if empty list
+		addToFront
+	otherwise
+		make a new pointer to a node n
+		put value in n
+		set next to nullptr
+		set previous to what tail pointed to
+		set tail’s next to n
+		tail points to this node
+		increment the size
+
+bool Sequence::deleteItem(int pos)
+	if we are deleting the first node
+		make a new node to_be_deleted that points to head’s object
+		set head to next item
+		first item now has prev = null
+		delete to_be_deleted
+		decrement the size
+		return true
+
+	otherwise
+		make a pointer to a node p that starts at the first item
+		repeatedly
+			search for position one above desired
+				if found, break
+			increment counters on position and list
+		if it is not the last element
+make a pointer to node kill me that points to the next object after p
+object before desired node points to object after desired
+object after desired node points to object before desired
+delete desired node
+decrement size
+return true
+		if it is the last element in the list
+make a pointer to node kill me that points to the next object after p
+			object before desired node next gets nullptr, last elem
+			tail now points to p
+			delete desired node
+			decrement size
+			return true	
+	return false
+
+
+int subsequence(const Sequence& seq1, const Sequence& seq2)
+	if both or one sequences are empty
+		return  
+	if seq1 is smaller than seq2
+		return  
+	if they are equal in size
+		create two itemtypes
+		repeatedly
+			use get function to put into itemtypes
+			check if itemptypes at each position match
+				if any element does not match
+					return  
+		otherwise return 0, they are the same starting at pos 0
+
+	otherwise
+	repeatedly
+		create two itemtypes
+		if an item in seq1 corresponds to first item in seq2
+			repeatedly 
+				loop to end of seq2
+				find if they match consecutive items in seq 1
+				if they don’t match
+					break to outer loop again
+				if they match
+					return initial position
+	return  
+
+void concatReverse(const Sequence& seq1, const Sequence& seq2, Sequence& result)
+    if both seq1 and seq2 empty
+        attach temp to result (nothing)
+    if only seq1 empty
+        iterate seq2
+        reverse seq2
+        append to temp
+        assign temp to result
+    if only seq2 empty
+        iterate seq1
+        reverse seq1
+        append to temp
+        assign temp to result
+    if both not empty
+        iterate seq1
+        reverse seq1
+        append to temp
+        iterate seq2
+        reverse seq2
+        append to temp
+        assign temp to result
+
+
+
+Test cases:
+
+    /* ItemType = std::string */
+
+    // Sequence ss;
+    // ss.insert(0, "aaa");
+    // ss.insert(1, "bbb");
+    // ss.insert(2, "ccc");
+    // ItemType z = "zzz";
+    // assert(!ss.get(3, z)  &&  z == "zzz");  // x is unchanged
+    // assert(ss.get(1, z)  &&  z == "bbb");
+    
+    // Sequence s;
+    // assert(s.insert(0, "lavash") == 0);
+    // assert(s.insert(0, "tortilla") == 0);
+    // assert(s.size() == 2);
+    // ItemType p = "injera";
+    // assert(s.get(0, p)  &&  p == "tortilla");
+    // assert(s.get(1, p)  &&  p == "lavash");
+   
+    // Sequence q;
+    // q.insert(0, "hello");
+    // q.insert(1, "goodbye");
+    
+    // Sequence m = q;         //copy constructor
+    
+    // assert(q.remove("hello") == 1);
+
+    // cout << "Passed all tests" << endl;
+ 
+
+
+
+
+
+    /* ItemType = unsigned long */
+ 
+    // test insert()
+    Sequence p;
+    p.insert(0, 1);
+    p.insert(1, 2);
+    p.insert(2, 4);
+    p.insert(3, 5);
+    p.insert(4, 6);
+    p.insert(0, 7);
+    p.insert(3, 8);
+    
+    Sequence q;
+    q.insert(0, 8);
+    q.insert(1, 4);
+    q.insert(2, 5);
+    
+    Sequence r;
+    r.insert(0, 7);
+    r.insert(1, 1);
+    r.insert(2, 2);
+    r.insert(3, 4);
+    r.insert(4, 5);
+    
+    Sequence m;
+    m.insert(0, 7);
+    m.insert(1, 1);
+    m.insert(2, 2);
+    m.insert(3, 8);
+    m.insert(4, 4);
+    
+    Sequence cccc;
+    cccc.insert(0, 1);
+    cccc.insert(1, 2);
+    cccc.insert(2, 4);
+    cccc.insert(3, 5);
+    cccc.insert(4, 6);
+    
+    Sequence yy;
+    yy.insert(0, 1);
+    yy.insert(1, 2);
+    yy.insert(2, 4);
+    yy.insert(3, 5);
+    yy.insert(4, 6);
+  
+    // test subsequence()
+    assert(subsequence(p, q) == 3);
+    assert(subsequence(p, r) ==     );
+    assert(subsequence(p, m) == 0);
+
+    // test insert()
+    assert(m.insert(8) == 3);  // with 1
+    assert(cccc.insert(3) == 2);
+    assert(cccc.insert(0) == 0);
+    assert(m.insert(9) == 6);
+    assert(yy.insert(6) == 4 && yy.size() == 6);
+    
+    // test erase()
+    assert(r.erase(0) && r.size() == 4);
+    ItemType boo;
+    assert(r.get(0, boo) && boo == 1);
+    assert(r.erase(3) && r.size() == 3);
+    assert(r.get(2, boo) && boo == 4);
+    assert(!r.get(3, boo));
+    assert(r.erase(1) && r.size() == 2);
+    assert(r.get(0, boo) && boo == 1);
+    assert(r.get(1, boo) && boo == 4);
+    
+    Sequence seq1;
+    seq1.insert(0, 30);
+    seq1.insert(1, 21);
+    seq1.insert(2, 63);
+    seq1.insert(3, 42);
+    seq1.insert(4, 17);
+    seq1.insert(5, 63);
+    
+    Sequence seq2;
+    seq2.insert(0, 42);
+    seq2.insert(1, 63);
+    seq2.insert(2, 84);
+    seq2.insert(3, 19);
+    
+    // test concatReverse()
+    Sequence result;  // with diff sizes, bigger first
+    concatReverse(seq1, seq2, result);
+    ItemType k;
+    assert(result.get(0, k)  &&  k == 30);
+    assert(result.get(1, k)  &&  k == 42);
+    assert(result.get(2, k)  &&  k == 21);
+    assert(result.get(3, k)  &&  k == 63);
+    assert(result.get(4, k)  &&  k == 63);
+    assert(result.get(5, k)  &&  k == 84);
+    assert(result.get(6, k)  &&  k == 42);
+    assert(result.get(7, k)  &&  k == 19);
+    assert(result.get(8, k)  &&  k == 17);
+    assert(result.get(9, k)  &&  k == 63);
+
+    Sequence a;
+    a.insert(0, 1);
+    a.insert(1, 2);
+
+    Sequence b;
+    b.insert(0, 3);
+    b.insert(1, 4);
+    b.insert(2, 5);
+    b.insert(3, 6);
+
+    // test concatReverse()
+    Sequence result2;
+    concatReverse(a, b, result2);  // different sizes, bigger second
+    ItemType bbbb;
+    assert(result2.get(0, bbbb)  &&  bbbb == 1);
+    assert(result2.get(1, bbbb)  &&  bbbb == 3);
+    assert(result2.get(2, bbbb)  &&  bbbb == 2);
+    assert(result2.get(3, bbbb)  &&  bbbb == 4);
+    assert(result2.get(4, bbbb)  &&  bbbb == 5);
+    assert(result2.get(5, bbbb)  &&  bbbb == 6);
+
+    Sequence c;
+    c.insert(0, 1);
+    c.insert(1, 2);
+    
+    Sequence d;
+    d.insert(0, 3);
+    d.insert(1, 4);
+    
+    // test concatReverse()
+    Sequence result3;
+    concatReverse(c, d, result3);  // with same size
+    ItemType www;
+    assert(result3.get(0, www)  &&  www == 1);
+    assert(result3.get(1, www)  &&  www == 3);
+    assert(result3.get(2, www)  &&  www == 2);
+    assert(result3.get(3, www)  &&  www == 4);
+    
+    // empty
+    Sequence e;
+    
+    Sequence f;
+    f.insert(0, 1);
+    f.insert(1, 2);
+    
+    // test concatReverse()
+    Sequence result4;
+    concatReverse(e, f, result4);  // with first empty
+    ItemType ya;
+    assert(result4.get(0, ya)  &&  ya == 1);
+    assert(result4.get(1, ya)  &&  ya == 2);
+    
+    Sequence result5;
+    concatReverse(f, e, result5);  // with second empty
+    ItemType hi;
+    assert(result5.get(0, hi)  &&  hi == 1);
+    assert(result5.get(1, hi)  &&  hi == 2);
+    
+    Sequence h;
+    Sequence resultempty;  // with both empty
+    concatReverse(e, h, resultempty);
+    ItemType empty;
+    assert(!resultempty.get(0, empty));
+    assert(resultempty.empty());
+  
+ 
+    Sequence x;
+    x.insert(0, 0);
+    x.insert(1, 1);
+  
+    // test copy constructor
+    Sequence x2 = x;
+    ItemType ab;
+    assert(x2.get(0, ab) && ab == 0);
+    assert(x2.get(1, ab) && ab == 1);
+    
+
+    // test assignment operator
+    Sequence o;
+    o = x2;
+    ItemType ba;
+    assert(o.get(0, ba) && ba == 0);
+    assert(o.get(1, ba) && ba == 1);
+ 
+    x = x2;
+    ItemType cd;
+    assert(x.get(0, cd) && cd == 0);
+    assert(x.get(1, cd) && cd == 1);
+ 
+  
+  
+    Sequence yz;
+    yz.insert(0, 0);
+    yz.insert(1, 1);
+    yz.insert(2, 2);
+    yz.insert(3, 3);
+    yz.insert(4, 4);
+    yz.insert(5, 5);
+
+    // test remove()
+    ItemType z;
+    assert(yz.remove(1) == 1 && yz.size() == 5);
+    assert(yz.get(1, z) && z == 2);
+    assert(yz.remove(5) == 1 && yz.size() ==4);  // last element
+    assert(yz.get(3, z) && z == 4);
+    assert(yz.remove(0) == 1 && yz.size() == 3);  // first element
+    assert(yz.get(0, z) && z == 2);
+
+    Sequence op;
+    op.insert(0, 0);
+    op.insert(1, 1);
+    op.insert(2, 2);
+    op.insert(3, 3);
+    op.insert(4, 4);
+    op.insert(5, 5);
+    
+    // test find()
+    assert(op.find(0) == 0);
+    assert(op.find(1) == 1);
+    assert(op.find(2) == 2);
+    assert(op.find(3) == 3);
+    assert(op.find(4) == 4);
+    assert(op.find(5) == 5);
+    assert(op.find(100) ==  );
+
+    Sequence pi;
+    pi.insert(0, 10);
+    pi.insert(1, 11);
+    pi.insert(2, 12);
+    pi.insert(3, 13);
+    pi.insert(4, 14);
+    pi.insert(5, 15);
+    
+    // test swap(), same sizes
+    op.swap(pi);
+    assert(pi.get(0, z) && z == 0);
+    assert(pi.get(1, z) && z == 1);
+    assert(pi.get(2, z) && z == 2);
+    assert(pi.get(3, z) && z == 3);
+    assert(pi.get(4, z) && z == 4);
+    assert(pi.get(5, z) && z == 5);
+    
+    assert(op.get(0, z) && z == 10);
+    assert(op.get(1, z) && z == 11);
+    assert(op.get(2, z) && z == 12);
+    assert(op.get(3, z) && z == 13);
+    assert(op.get(4, z) && z == 14);
+    assert(op.get(5, z) && z == 15);
+    
+    
+    Sequence ii;
+    ii.insert(0, 20);
+    ii.insert(1, 21);
+    ii.insert(2, 22);
+    ii.insert(3, 23);
+    
+    // test swap(), different sizes
+    op.swap(ii);
+    
+    assert(ii.get(0, z) && z == 10);
+    assert(ii.get(1, z) && z == 11);
+    assert(ii.get(2, z) && z == 12);
+    assert(ii.get(3, z) && z == 13);
+    assert(ii.get(4, z) && z == 14);
+    assert(ii.get(5, z) && z == 15);
+    
+    assert(op.get(0, z) && z == 20);
+    assert(op.get(1, z) && z == 21);
+    assert(op.get(2, z) && z == 22);
+    assert(op.get(3, z) && z == 23);
+
+    
+    // test alias
+    op.swap(op);
+  
+    cout << "Passed all tests" << endl;

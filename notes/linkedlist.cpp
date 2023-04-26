@@ -84,4 +84,30 @@ whenever you write p->... make sure
     p is not a nullptr
 
 middle, front, back, empty, one-element list
+
+• Draw pictures! In many places in the code, you will be creating or deleting nodes and retargeting
+where a pointer variable points to. If you look at just the code, it's hard to understand what's
+going on, so it's easy for mistakes to go unnoticed. Draw a picture of the list and trace through
+the code carefully, updating the picture as you go along in accordance with what the code actually
+says to do, not what you wish it did. It's amazing how many bugs you catch this way.
+
+• Anytime you write p->something, make sure that you can prove to yourself that no matter
+how you get to that point,
+    o p has previously been given a value
+    o p's value is not the null pointer
+
+• Make sure that code that inserts or removes or examines items in a list works correctly
+    o for activity in the typical case: somewhere in the middle of the list
+    o for activity at the front of the list
+    o for activity at the end of the list
+    o for an empty list
+    o for a one-element list (usually, but not always, this case is covered by some of the others)
+
+• When doing something that changes several pointers (e.g., inserting, removing, or rearranging
+nodes), make sure you execute the statements changing the pointers in the right order; don't lose a
+pointer value that you need later. When creating a new node, one thing that helps is setting its
+pointer members before changing other pointers: Those members have no old value that you
+might need later, and by setting them first, you reduce the number of ways to mis-order the
+remaining pointer manipulations.
+
 */
