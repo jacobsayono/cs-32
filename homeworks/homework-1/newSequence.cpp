@@ -28,7 +28,7 @@ Sequence::Sequence(const Sequence& seq) {
         array[i] = seq.array[i];
 }
 
-Sequence& Sequence::operator=(const Sequence& seq) {
+Sequence &Sequence::operator=(const Sequence& seq) {
     if (&seq == this)
         return *this;
     
