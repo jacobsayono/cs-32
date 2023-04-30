@@ -40,7 +40,7 @@ void LinkedList::printItems() {
 
 void LinkedList::addToFront(std::string v) {
     Node* p;
-    p = new Node;  //allocates an empty node to hold our new item that is to be added
+    p = new Node;  // allocates an empty node to hold our new item that is to be added
     p->value = v;  // sets whatever string you want to store as this node's value
 
     p->next = head;  // links our new node to the same address that head holds (that is pointing to), which is the first item in the list

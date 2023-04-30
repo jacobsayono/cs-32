@@ -1,0 +1,5 @@
+arrays:
+faster to get any item in structure
+
+linked-list:
+faster to insert/remove an item in structure
