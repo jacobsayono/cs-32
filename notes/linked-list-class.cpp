@@ -11,6 +11,7 @@ class LinkedList {
         LinkedList();
         void addToFront(std::string v);
         void addToRear(std::string v);
+        void addToRearWithTail(std::string v);
         void addToMiddle(std::string v, std::string beforeThisGuy);
         void deleteItem(std::string v);
         bool findItem(std::string v);
@@ -19,6 +20,7 @@ class LinkedList {
 
     private:
         Node* head;
+        Node* tail;
 };
 
 LinkedList::LinkedList() {
@@ -73,6 +75,19 @@ void LinkedList::addToRear(std::string v) {
         p->next = n;  // link the last node to our new node by changing from pointing to nullptr to pointing to our new node
         
         n->next = nullptr;  // set the added node to point to the nullptr since it's the last item now
+    }
+}
+
+void LinkedList::addToRearWithTail(std::string v) {
+    if (head == nullptr) {
+        addToFront(v);  // if empty list
+    }
+    else {
+        Node* n = new Node;  // create new node to add
+        n->value = v;  // set the node's value
+        tail->next = n;  // set current tail node's next pointer equal to the location of our new node
+        n->next = nullptr;  // set our new node's next pointer to nullptr, so it becomes the new last node in the linked list
+        tail = n;  // change out pointer so it points at our new last node
     }
 }
 

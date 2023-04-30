@@ -25,7 +25,7 @@ int main() {
     third->treasure = "eggs";
     third->nextChest = nullptr;  // allows us to later check that the 3rd chest is our last chest
 
-    Chest* address = head->nextChest;
+    Chest* address = head->nextChest;  // to get the address of the node after head
 
     delete head;
     delete second;
