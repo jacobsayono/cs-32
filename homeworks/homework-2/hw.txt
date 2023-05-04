@@ -1,0 +1,58 @@
+Jacob Sayono
+505368811
+CS 32 Homework 2
+
+#2: First 12 Coordinates
+1. (3, 4) 
+2. (4, 4) 
+3. (3, 3)
+4. (3, 5) 
+5. (5, 4)
+6. (2, 5)
+7. (3, 6)
+8. (6, 4)
+9. (5, 5)
+10. (1, 5)
+11. (7, 4)
+12. (5, 6)
+
+The algorithm uses a stack of coordinates to keep track of the current path
+it's exploring in the maze. It starts by pushing the starting coordinate onto the stack
+and marking it as "encountered" by updating the corresponding value in the maze to 'O'.
+
+Then, it enters a loop where it continues to pop the top coordinate off
+the stack and explore the neighboring cells until it either finds the end coordinate
+or exhausts all possible paths.
+
+In each iteration of the loop, it checks each of the four adjacent cells to see
+if it's a valid move (i.e. not a wall 'X' and not already encountered 'O').
+If a cell is a valid move, it creates a new coordinate object for that cell
+and pushes it onto the stack. It also updates the corresponding value in the maze
+to 'O' to indicate that the algorithm has encountered it.
+
+The algorithm continues to iterate until it either finds the end coordinate
+(in which case it returns true) or the stack is empty (in which case it returns false,
+meaning there is no path from the starting coordinate to the end coordinate).
+
+#4: First 12 Coordinates
+1. (3, 4)
+2. (4, 4)
+3. (3, 3)
+4. (3, 5)
+5. (5, 4)
+6. (2, 5)
+7. (3, 6)
+8. (6, 4)
+9. (5, 5)
+10. (1, 5)
+11. (7, 4)
+12. (5, 6)
+
+The two algorithms differ from each other in the order they visit cells in the maze.
+The recursive algorithm uses a depth-first search (DFS) approach,
+where it explores as far as possible along each branch before backtracking.
+In contrast, the queue-based algorithm uses a breadth-first search (BFS) approach,
+where it explores all the cells at the current distance from the starting cell before
+moving to the next distance. As a result, the queue-based algorithm visits cells in
+the order of increasing distance from the starting cell, whereas the recursive algorithm
+visits cells in a depth-first manner.
