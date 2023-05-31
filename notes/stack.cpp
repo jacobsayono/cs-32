@@ -5,6 +5,7 @@ const int SIZE = 100;
 class Stack {
     public:
         Stack();  // constructor
+        
         void push (int val);  // add item to stack, takes int as a parameter
         int pop();  // remove item from stack, returns an int
         bool s_empty(void);  // check if stack s empty
