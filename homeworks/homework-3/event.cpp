@@ -21,7 +21,7 @@ class BasketballGame : public Event {
         virtual string need() const {
             return "hoops";
         }
-        ~BasketballGame() {
+        virtual ~BasketballGame() {
             cout << "Destroying the " + this->name() + " basketball game"  << endl;
         }
 };
@@ -36,7 +36,7 @@ class Concert : public Event {
         virtual bool isSport() const {
             return false;
         }
-        ~Concert() {
+        virtual ~Concert() {
             cout << "Destroying the " + this->name() + " concert" << endl;
         }
     private:

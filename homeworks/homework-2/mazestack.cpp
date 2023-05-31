@@ -16,9 +16,9 @@ class Coord
     };
 
 
-bool pathExists(char maze[][10], int sr, int sc, int er, int ec);
+bool pathExists(char maze[][5], int sr, int sc, int er, int ec);
 
-bool pathExists(char maze[][10], int sr, int sc, int er, int ec) {
+bool pathExists(char maze[][5], int sr, int sc, int er, int ec) {
     stack <Coord> coordinates;
     Coord a(sr, sc);
 
@@ -108,8 +108,37 @@ int main()
         { 'X','X','X','X','X','X','X','X','X','X' }
     };
 
-    if (pathExists(maze, 3,4, 8,1))
-        cout << "Solvable!" << endl;
-    else
-        cout << "Out of luck!" << endl;
+    // if (pathExists(maze, 3,4, 8,1))
+    //     cout << "Solvable!" << endl;
+    // else
+    //     cout << "Out of luck!" << endl;
+
+    // // Print the maze
+    // for (int i = 0; i < 10; i++) {
+    //     for (int j = 0; j < 10; j++) {
+    //         cout << maze[i][j] << " ";
+    //     }
+    //     cout << endl;
+    // }
+
+    char smallmaze[5][5] = {
+        { 'X', 'X', 'X', 'X', 'X' },
+        { 'X', '.', '.', '.', 'X' },
+        { 'X', '.', 'X', '.', 'X' },
+        { 'X', '.', '.', '.', 'X' },
+        { 'X', 'X', 'X', 'X', 'X' }
+    };
+
+    if (pathExists(smallmaze, 1,1, 3,3)) {
+        cout << "solvable" << endl;
+    }
+
+    // Print the maze
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            cout << smallmaze[i][j] << " ";
+        }
+        cout << endl;
+    }
+
 }

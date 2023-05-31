@@ -16,9 +16,9 @@ class Coord
     };
 
 
-bool pathExists(char maze[][10], int sr, int sc, int er, int ec);
+bool pathExists(char maze[][5], int sr, int sc, int er, int ec);
 
-bool pathExists(char maze[][10], int sr, int sc, int er, int ec) {
+bool pathExists(char maze[][5], int sr, int sc, int er, int ec) {
     queue <Coord> coordinates;
     Coord a(sr, sc);
 
@@ -42,11 +42,13 @@ bool pathExists(char maze[][10], int sr, int sc, int er, int ec) {
 
         // If the current (r,c) coordinate is equal to the ending coordinate,
         // then we've solved the maze so return true!
-        if (sr == er && sc == ec)               
+        if (sr == er && sc == ec) {              
             return true;
+        }
         
-        if (r == er && c == ec)                
+        if (r == er && c == ec) {              
             return true;
+        }
         
         // Check South
         // If you can move SOUTH and haven't encountered that cell yet,
@@ -58,6 +60,13 @@ bool pathExists(char maze[][10], int sr, int sc, int er, int ec) {
             maze[r+1][c] = 'O';                
         }
 
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                cout << maze[i][j] << " ";
+            }
+            cout << endl;
+        }
+
         // Check East
         // If you can move EAST and haven't encountered that cell yet,
         // then push the coordinate (r,c+1) onto the stack and update
@@ -66,6 +75,13 @@ bool pathExists(char maze[][10], int sr, int sc, int er, int ec) {
             Coord e(r, c+1);
             coordinates.push(e);             
             maze[r][c+1] = 'O';     
+        }
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                cout << maze[i][j] << " ";
+            }
+            cout << endl;
         }
         
         // Check North
@@ -78,6 +94,13 @@ bool pathExists(char maze[][10], int sr, int sc, int er, int ec) {
             maze[r-1][c] = 'O';             
         }
 
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                cout << maze[i][j] << " ";
+            }
+            cout << endl;
+        }
+
         // Check West
         // If you can move WEST and haven't encountered that cell yet,
         // then push the coordinate (r,c-1) onto the stack and update
@@ -87,7 +110,16 @@ bool pathExists(char maze[][10], int sr, int sc, int er, int ec) {
             coordinates.push(w);                  
             maze[r][c-1] = 'O';               
         }
-        
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                cout << maze[i][j] << " ";
+            }
+            cout << endl;
+        }
+
+        cout << "next loop" << endl;
+
     }
     return false;
     
@@ -128,3 +160,55 @@ bool pathExists(char maze[][10], int sr, int sc, int er, int ec) {
 //     else
 //         cout << "Out of luck!" << endl;
 // }
+
+int main()
+{
+    // char maze[10][10] = {
+    //     { 'X','X','X','X','X','X','X','X','X','X' },
+    //     { 'X','.','.','.','X','.','.','.','.','X' },
+    //     { 'X','.','.','X','X','.','X','X','.','X' },
+    //     { 'X','.','X','.','.','.','.','X','X','X' },
+    //     { 'X','X','X','X','.','X','X','X','.','X' },
+    //     { 'X','.','.','X','.','.','.','X','.','X' },
+    //     { 'X','.','.','X','.','X','.','.','.','X' },
+    //     { 'X','X','.','X','.','X','X','X','X','X' },
+    //     { 'X','.','.','.','.','.','.','.','.','X' },
+    //     { 'X','X','X','X','X','X','X','X','X','X' }
+    // };
+
+    // if (pathExists(maze, 3,4, 5,6))
+    //     cout << "Solvable!" << endl;
+    // else
+    //     cout << "Out of luck!" << endl;
+
+    // // Print the maze
+    // for (int i = 0; i < 10; i++) {
+    //     for (int j = 0; j < 10; j++) {
+    //         cout << maze[i][j] << " ";
+    //     }
+    //     cout << endl;
+    // }
+
+    char smallmaze[5][5] = {
+        { 'X', 'X', 'X', 'X', 'X' },
+        { 'X', '.', '.', '.', 'X' },
+        { 'X', '.', 'X', '.', 'X' },
+        { 'X', '.', '.', '.', 'X' },
+        { 'X', 'X', 'X', 'X', 'X' }
+    };
+
+    if (pathExists(smallmaze, 1,1, 2,3)) {
+        cout << "solvable" << endl;
+    } else {
+        cout << "not" << endl;
+    }
+
+    // Print the maze
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            cout << smallmaze[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+}

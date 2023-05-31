@@ -3,18 +3,7 @@ Jacob Sayono
 CS 32 Homework 2
 
 #2: First 12 Coordinates
-1. (3, 4) 
-2. (4, 4) 
-3. (3, 3)
-4. (3, 5) 
-5. (5, 4)
-6. (2, 5)
-7. (3, 6)
-8. (6, 4)
-9. (5, 5)
-10. (1, 5)
-11. (7, 4)
-12. (5, 6)
+(3,4) (3,3) (3,5) (2,5) (1,5) (1,6) (1,7) (1,8) (2,8) (3,6) (4,4) (5,4)
 
 The algorithm uses a stack of coordinates to keep track of the current path
 it's exploring in the maze. It starts by pushing the starting coordinate onto the stack
@@ -35,18 +24,7 @@ The algorithm continues to iterate until it either finds the end coordinate
 meaning there is no path from the starting coordinate to the end coordinate).
 
 #4: First 12 Coordinates
-1. (3, 4)
-2. (4, 4)
-3. (3, 3)
-4. (3, 5)
-5. (5, 4)
-6. (2, 5)
-7. (3, 6)
-8. (6, 4)
-9. (5, 5)
-10. (1, 5)
-11. (7, 4)
-12. (5, 6)
+(3,4) (4,4) (3,5) (3,3) (5,4) (3,6) (2,5) (6,4) (5,5) (1,5) (7,4) (5,6)
 
 The two algorithms differ from each other in the order they visit cells in the maze.
 The recursive algorithm uses a depth-first search (DFS) approach,
