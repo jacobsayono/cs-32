@@ -45,7 +45,7 @@ int Board::beans(Side s, int hole) const {
         }
     }
 
-    if (s == NORTH) {
+    if (s == SOUTH) {
         if (hole == 0) {
             return _south_pot;
         }

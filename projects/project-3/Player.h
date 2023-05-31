@@ -21,6 +21,8 @@ class Player {
 
     private:
         std::string _name;
+        Side _side;
+        Side getSide() const;
 };
 
 class HumanPlayer : public Player {
