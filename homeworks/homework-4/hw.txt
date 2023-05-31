@@ -1,0 +1,68 @@
+Jacob Sayono
+505368811
+CS 32
+Homework 4
+
+1e.
+In test case 3, when iterating over the vector `v2`, the loop condition `p != v2.end()` is checked at each iteration.
+However, within the loop, additional elements are appended to the vector using `v2.push_back(MAGIC)`.
+This causes the vector to resize and potentially invalidate the iterator `p`.
+As a result, the iterator `p` becomes invalidated, leading to undefined behavior when it is dereferenced in the subsequent loop iterations,
+which ultimately causes test case 3 to fail.
+
+3.
+The call to the one-argument form of `Sequence<Coord>::insert` causes a compilation error because the `Coord` class does not have an implicit conversion from `Coord` to `int`.
+The `insert` function is designed to insert elements of type `ItemType` into the `Sequence` container,
+and it expects the element to be of the same type as the container or convertible to that type.
+Since there is no implicit conversion from `Coord` to `int`, the compiler cannot find a suitable function overload to handle the insertion,
+resulting in a compilation error.
+
+4b.
+If we only had a one-parameter `listAll` function and we were required to implement it as a recursive function, we would face difficulties in keeping track of the path to each menu item. 
+In the problem statement, the two-parameter `listAll` function takes an additional `string path` parameter, which is used to store the current path to the menu item being processed.
+This allows us to concatenate the names of the parent menu items as we traverse the menu hierarchy.
+Without the `path` parameter, a recursive implementation of `listAll` would lose track of the path to each menu item.
+It would be challenging to maintain the hierarchical structure and accurately display the complete path for each menu item without passing the current path as a parameter.
+Therefore, the introduction of the two-parameter overload of `listAll` with the `path` parameter is crucial for correctly displaying the complete path to each menu item while maintaining a recursive implementation.
+
+5a.
+The time complexity of the given algorithm is O(N^3), where N is the number of people.
+The algorithm consists of three nested loops. The outer loop iterates N times, the middle loop also iterates N times,
+and the inner loop iterates N times. Therefore, the total number of iterations is N * N * N = N^3.
+Within the innermost loop, there are constant time operations such as assignments, comparisons, and logical operations.
+These operations have a constant time complexity and do not affect the overall time complexity of the algorithm.
+Hence, the dominant factor determining the time complexity is the cubic relationship with N due to the nested loops.
+As the input size (number of people) increases, the running time of the algorithm grows significantly as N^3.
+Therefore, the time complexity of the algorithm is O(N^3).
+
+5b.
+The time complexity of the improved algorithm is O(N^2), where N is the number of people.
+In the improved algorithm, the outer loop iterates over `i` from 0 to N-1, and the inner loop iterates over `j` from 0 to `i-1`.
+This change takes advantage of the symmetry of communication (`hasCommunicatedWith[i][j] == hasCommunicatedWith[j][i]`).
+By limiting the inner loop to iterate only up to `i-1`, the algorithm avoids redundant computations.
+It computes and assigns the number of intermediaries for each pair `(i, j)` and then assigns the same value to `(j, i)`, exploiting the symmetry property.
+Since the outer loop iterates N times, and the inner loop iterates `i-1` times for each `i`, the number of iterations is roughly proportional to N^2.
+Therefore, the time complexity of the improved algorithm is O(N^2).
+The improvement reduces the number of iterations from N^3 to N^2, resulting in a more efficient algorithm.
+By exploiting the symmetry, unnecessary computations are avoided, leading to improved time complexity.
+
+6a.
+The time complexity of the `concatReverse` function, in terms of the number of linked list nodes visited, is O(N), where N is the total number of elements in `seq1` and `seq2`.
+In the function, we iterate over both `seq1` and `seq2` using two separate loops. Each loop iterates in reverse order, from the last element to the first element of the sequence.
+For each element, we perform the following operations:
+1. Retrieve the element using `get(k, v)`, which visits one linked list node.
+2. Insert the element at the end of the `res` sequence using `insert(res.size(), v)`, which also visits one linked list node.
+Since the loops iterate over `seq1` and `seq2` in reverse order, we visit each node exactly once.
+Therefore, the number of linked list nodes visited is proportional to the total number of elements in `seq1` and `seq2`, which is N.
+As a result, the time complexity of the `concatReverse` function is O(N), where N is the total number of elements in `seq1` and `seq2`.
+
+6b.
+The time complexity of the `concatReverse` member function, in terms of the number of linked list nodes visited, is still O(N), where N is the total number of elements in `seq1` and `seq2`.
+In this implementation, we iterate over both `seq1` and `seq2` using two separate loops. However, instead of using the `get` function to retrieve elements, we directly traverse the linked list using the `m_prev` pointers.
+For each element, we perform the following operations:
+1. Create a new node and insert it at the beginning of the `res` sequence using `insertBefore(res.m_head, p->m_value)`, which visits one linked list node.
+2. Move to the previous node in the linked list using `p = p->m_prev`, which also visits one linked list node.
+Since the loops iterate over the linked list in reverse order, we visit each node exactly once. Therefore, the number of linked list nodes visited is proportional to the total number of elements in `seq1` and `seq2`, which is N.
+Overall, the time complexity of the `concatReverse` member function is still O(N), the same as the previous implementation.
+Both implementations have the same time complexity because they visit the same number of linked list nodes to concatenate the reversed sequences.
+However, it's worth noting that this implementation avoids using the `get` function and directly traverses the linked list using the `m_prev` pointers, which can be more efficient as it avoids some function call overhead.
