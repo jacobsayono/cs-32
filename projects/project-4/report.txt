@@ -1,0 +1,73 @@
+Jacob Sayono
+505368811
+CS 32 Project 4
+
+In this project, we improve the efficiency of the Dictionary implementation for finding anagrams.
+
+Problem with the Original Implementation:
+The original implementation of the Dictionary class used a simple linear search to find anagrams of a word.
+This approach was inefficient for two reasons.
+Firstly, it required comparing every word in the dictionary with the given set of letters, which can be very time-consuming for large dictionaries.
+Secondly, it did not take advantage of the fact that anagrams of a word have the same set of characters.
+
+New Implementation using Hash Tables:
+To improve the efficiency of the implementation, we can use a hash table to store the words in the dictionary.
+The hash function can be designed to take into account the fact that anagrams of a word have the same set of characters.
+We can create a hash function that calculates the hash value based on the sorted order of the characters in the word.
+We can use a vector of lists to implement the hash table. Each list will store all the words that have the same hash value.
+When we insert a word into the dictionary, we calculate its hash value and insert it into the corresponding list in the vector.
+To look up anagrams of a given set of letters, we calculate the hash value of the letters and look up the corresponding list in the vector.
+We then iterate over the words in the list and check if each word is an anagram of the given set of letters.
+If it is, we call the callback function with the word.
+
+The new implementation has the following advantages:
+- The time complexity of the lookup operation is O(1) on average, compared to O(n) in the original implementation, where n is the number of words in the dictionary.
+- The space complexity of the implementation is O(n), where n is the number of words in the dictionary, compared to O(1) in the original implementation.
+
+
+
+Pseudocode for Non-Trivial Algorithms:
+
+int hash(s: string)
+    sorted = sort(s)
+    return hash(sorted)
+
+bool isAnagram(s1: string, s2: string)
+    if length(s1) != length(s2) then
+        return false
+    sorted1 = sort(s1)
+    sorted2 = sort(s2)
+    return sorted1 = sorted2
+
+void insert(word: string)
+    removeNonLetters(word)
+    if not empty(word) then
+        bucket = hash(word) % numBuckets
+        buckets[bucket].append(word)
+
+void lookup(letters: string, callback: function)
+    if callback = null then
+        return
+    removeNonLetters(letters)
+    if empty(letters) then
+        return
+    bucket = hash(letters) % numBuckets
+    for word in buckets[bucket] do
+        if isAnagram(letters, word) then
+            callback(word)
+
+
+
+Bugs and problems:
+
+Dictionary.cpp: In member function ‘size_t DictionaryImpl::hash(const string&) const’:
+Dictionary.cpp:65:14: error: expected nested-name-specifier
+65 | typename hash<string> str_hash;
+| ^~~~~~~~~~~~
+Dictionary.cpp:65:14: error: expected ‘(’
+65 | typename hash<string> str_hash;
+| ^~~~~~~~~~~~
+| (
+
+Even though I had "using namespace std;" at the top of my file, I fixed the issue by replacing line with the following:
+typename std::hash<std::string> str_hash;
