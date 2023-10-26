@@ -4,12 +4,17 @@
 #include <stack>
 #include <queue>
 
+// unordered
 #include <vector>  // dynamic arrays: like array but can push/pop elements one by one. fast access to any element (via brackets) but adding new items is often slower
 #include <list>  // linked-lists: fast insertion/deletion, but slow to access middle elements
 
+// type of BST for searching (ordered alphabetically)
 #include <map>  // associate 2 related values, alphabetical order, create operator< for own classes
 #include <set>  // unique items only, ignores duplicate insertions, create operator< for own classes
 
+#include <algorithm>  // sort(first_it, second_it) a container to ascending order from begin to the element before end
+// e.g.: sort (&arr[0], &arr[4]);
+// O(nlog(n)) for all cases (introsort combination: quicksort, heapsort, insertionsort)
 
 // stack: push(x), pop(), top(), empty(), size()
 // queue: push(x), pop(), front(), back(), empty(), size()
@@ -22,13 +27,10 @@
 // set: insert(x), erase(x), size()
     // iterators: find(), begin(), end()
     // bool operator<(const class &a, const class &b)
+    // a type of BST to enable fast searching
 
 // iterator is invalidated once you add or erase items in a vector
 // list, map, set, OK but don't erase item that iterator is pointing to
-
-#include <algorithm>  // sort(first_it, second_it) a container to ascending order from begin to the element before end
-// sort (&arr[0], &arr[4]);
-
 
 void tick(const std::list<std::string> &nerds) {
         std::list<std::string>::const_iterator it3;  // use this keyword to iterate such container
@@ -37,10 +39,17 @@ void tick(const std::list<std::string> &nerds) {
 }
 
 struct stud {
-        std::string name;
-        int id;
+    bool operator<(const stud& other) const {
+        if (name == other.name) {
+            return id < other.id;
+        }
+        return name < other.name;
+    }
+    std::string name;
+    int id;
 };
 
+// externally defined operator>
 bool operator<(const stud &a, const stud &b) {
     // return (a.id < b.id);
     if (a.name == b.name) {

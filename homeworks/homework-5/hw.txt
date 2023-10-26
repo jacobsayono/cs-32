@@ -59,7 +59,7 @@ else start at root
 while not done
     if num == current node's value
         return
-    else if num &lt; current node's value
+    else if num < current node's value
         if current->left != nullptr
             current = current -> left
         else
